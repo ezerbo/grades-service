@@ -1,2 +1,2 @@
 # Grades Service
-Service That Stores Student Grades Data (Datadog APM Demo)
+Service That Stores Grades (Datadog APM Demo)
