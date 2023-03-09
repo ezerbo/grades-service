@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetTuitionResponse {
+public class Tuition {
 
     private boolean paid;
 }

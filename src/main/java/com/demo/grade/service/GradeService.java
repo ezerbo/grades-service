@@ -4,9 +4,9 @@ import com.demo.grade.error.NoGradeFoundException;
 import com.demo.grade.error.UnpaidTuitionException;
 import com.demo.grade.model.Grade;
 import com.demo.grade.model.api.CreateGradeRequest;
-import com.demo.grade.model.api.GetTuitionResponse;
 import com.demo.grade.model.api.UpdateGradeRequest;
 import com.demo.grade.repository.GradeRepository;
+import com.demo.grade.service.client.TuitionApiClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -55,15 +55,21 @@ public class GradeService {
         return repository.save(grade);
     }
 
-    public Grade get(Long id) {
-        log.info("Getting grade with id: '{}'", id);
+    public Grade get(Long id, Long tuitionId) {
+        log.info("Getting grade with id: '{}' & tuitionId: {}", id, tuitionId);
         Grade grade = repository.findById(id)
                 .orElseThrow(() -> new NoGradeFoundException("No grade found with id: '%s'", id));
-        GetTuitionResponse tuition = tuitionApiClient.getTuition(grade.getStudentId());
-        if (!tuition.isPaid()) {
+        if (!tuitionApiClient.isTuitionPaid(tuitionId)) {
             log.info("Student has not paid tuition, grade cannot be released");
-            throw new UnpaidTuitionException("Student with id: {} has not paid tuition, grades cannot be released");
+            throw new UnpaidTuitionException("Student with id: %s has not paid tuition, grades cannot be released",
+                    grade.getStudentId());
         }
         return grade;
+    }
+
+    public void delete(Long id) {
+        Grade grade = repository.findById(id)
+                .orElseThrow(() -> new NoGradeFoundException("No grade found with id: '%s'", id));
+        repository.delete(grade);
     }
 }

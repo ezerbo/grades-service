@@ -38,6 +38,7 @@ docker run -d --name grades-service \
  -e PORT=8081 \
  -e DD_AGENT_HOST=host.docker.internal \
  -e ENROLLMENTS_SERVICE_URL=http://host.docker.internal:8080 \
+ -e TUITION_SERVICE_URL=http://host.docker.internal:8082/tuition \
  -p 8081:8081 \
  -it ezerbo/grades-service:latest
 

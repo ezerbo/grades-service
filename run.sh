@@ -12,4 +12,5 @@ java -javaagent:./dd-java-agent.jar \
  -Dserver.port="$PORT" \
  -Dspring.profiles.active="$PROFILE" \
  -Dapp.enrollments-service-config.url="$ENROLLMENTS_SERVICE_URL" \
+ -Dapp.tuition-service-config.url="$TUITION_SERVICE_URL" \
  -jar grades-service.jar

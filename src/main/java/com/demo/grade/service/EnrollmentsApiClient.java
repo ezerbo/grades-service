@@ -41,4 +41,5 @@ public class EnrollmentsApiClient {
         log.info("Course validation response: {}", response);
         return Objects.nonNull(response.getBody()) && response.getStatusCode().equals(HttpStatus.OK);
     }
+
 }

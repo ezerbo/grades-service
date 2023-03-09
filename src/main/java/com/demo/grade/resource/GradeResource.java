@@ -29,15 +29,22 @@ public class GradeResource {
         return ResponseEntity.ok(service.create(request));
     }
 
-    @PutMapping(ServicePaths.UPDATE_GRADES)
+    @PutMapping(ServicePaths.GRADE_BY_ID)
     public ResponseEntity<Grade> update(@PathVariable Long id, @RequestBody @Valid UpdateGradeRequest request) {
         log.info("Updating grade with id: '{}', '{}'", id, request);
         return ResponseEntity.ok(service.update(id, request));
     }
 
-    @GetMapping(ServicePaths.GET_GRADE)
-    public ResponseEntity<Grade> get(@PathVariable Long id) {
-        log.info("Getting grades with id: '{}'", id);
-        return ResponseEntity.ok(service.get(id));
+    @GetMapping(ServicePaths.GRADE_BY_ID)
+    public ResponseEntity<Grade> get(@PathVariable Long id, @RequestParam Long tuitionId) {
+        log.info("Getting grades with id: '{}', tuitionId: {}", id, tuitionId);
+        return ResponseEntity.ok(service.get(id, tuitionId));
+    }
+
+    @DeleteMapping(ServicePaths.GRADE_BY_ID)
+    public ResponseEntity<Grade> delete(@PathVariable Long id) {
+        log.info("Deleting grade with id: '{}'", id);
+        service.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

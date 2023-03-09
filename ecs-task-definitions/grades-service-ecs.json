@@ -26,6 +26,10 @@
         {
           "name": "ENROLLMENTS_SERVICE_URL",
           "valueFrom": "arn:aws:ssm:us-east-1:637020351615:parameter/ENROLLMENTS_SERVICE_URL"
+        },
+        {
+          "name": "TUITION_SERVICE_URL",
+          "valueFrom": "arn:aws:ssm:us-east-1:637020351615:parameter/TUITION_SERVICE_URL"
         }
       ],
       "environment": [

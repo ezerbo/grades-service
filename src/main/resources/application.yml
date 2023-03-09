@@ -26,8 +26,8 @@ app:
     agent-port: 8125
   enrollments-service-config:
     url: http://localhost:8080
-  tuition-service:
-    url: http://localhost:8082
+  tuition-service-config:
+    url: http://localhost:8082/tuition
 
 server:
   port: 8081
