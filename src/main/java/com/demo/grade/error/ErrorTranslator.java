@@ -23,6 +23,14 @@ public class ErrorTranslator {
 		return toErrorVM(ex);
 	}
 
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(UnpaidTuitionException.class)
+	public ErrorVM translate(UnpaidTuitionException ex) {
+		log.error("error {}", ex.getMessage());
+		ex.printStackTrace();
+		return toErrorVM(ex, ErrorCode.UNPAID_TUITION);
+	}
+
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NoGradeFoundException.class)
 	public ErrorVM translate(NoGradeFoundException ex) {
@@ -52,7 +60,12 @@ public class ErrorTranslator {
 	}
 	
 	private ErrorVM toErrorVM(Exception e) {
+		return toErrorVM(e, null);
+	}
+
+	private ErrorVM toErrorVM(Exception e, ErrorCode errorCode) {
 		return ErrorVM.builder()
+				.errorCode(errorCode)
 				.description("Unable to process request")
 				.message(e.getMessage())
 				.build();

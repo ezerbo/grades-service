@@ -49,7 +49,7 @@ public class Grade {
     @PrePersist
     public void onCreate() {
         setCreateDate(new Date());
-        setGrade(SupportedGrade.NOT_YET_AVAILABLE);
+        setGrade(SupportedGrade.NOT_YET_SUBMITTED);
         setUpdateDate(new Date());
     }
 

@@ -8,9 +8,11 @@ import io.swagger.v3.oas.models.info.Info;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class ContextConfig {
+public class ContextConfig implements WebMvcConfigurer {
 
     private final ServiceProperties properties;
 
@@ -47,7 +49,12 @@ public class ContextConfig {
                 .description("Service to Get a Student's Grade for a Course (Datadog APM Demo)")
                 .version("1.0")
                 .title("Grades Service");
-        return new OpenAPI()
-                .info(info);
+        return new OpenAPI().info(info);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE", "HEAD");
     }
 }
